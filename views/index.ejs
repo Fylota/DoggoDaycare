@@ -1,0 +1,26 @@
+<%- include('header') -%>
+
+<body>
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark mb-4">
+        <a class="navbar-brand" href="" >Doggo DayCare</a>
+    </nav>
+    <main role="main" class="container d-flex justify-content-center">
+        <div class="jumbotron col-4">
+            <h2>Admin</h2>
+            <% if (typeof error !== 'undefined') { %>
+                <div>
+                    <p><%= error %> </p>
+                </div>
+            <% } %>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="pass">Password</label>
+                    <input type="password" class="form-control" id="pass" name="password">
+                </div>
+                <button type="submit" class="btn btn-primary">Sign in</a>
+                    
+            </form>
+        </div>
+    </main>
+
+<%- include('footer') -%>

@@ -1,0 +1,36 @@
+<%- include('header') -%>
+
+<body>
+
+    <%- include('navbar') -%>
+
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <h2><% if (typeof owner === 'undefined') {%>Save new owner<%} else {%>Edit owner<%}%></h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="inputOwnerName" name="name"
+                        placeholder="<% if (typeof owner === 'undefined') {%>Enter full name<%} %>"
+                        <% if (typeof owner !== 'undefined') {%>value=<%= owner.name %><%}%>>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" class="form-control" id="inputEmail" name="email"
+                        placeholder="<% if (typeof owner === 'undefined') {%>Enter email<%} %>"
+                        <% if (typeof owner !== 'undefined') {%>value=<%= owner.email %><%}%>>
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone number</label>
+                    <input type="number" class="form-control" id="inputPhone" name="phone"
+                        placeholder="<% if (typeof owner === 'undefined') {%>Enter phone number<%} %>"
+                        <% if (typeof owner !== 'undefined') {%>value=<%= owner.phone %><%}%>>
+                </div>
+                <button href="/owner" type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+                <a href="/owner" type="button" class="btn btn-secondary float-right">Cancel</a>
+            </form>
+        </div>
+    </main>
+
+<%- include('footer') -%>

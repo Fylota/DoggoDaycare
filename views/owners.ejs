@@ -1,0 +1,36 @@
+<%- include('header') -%>
+
+<body>
+
+    <%- include('navbar', {active:'owners'}) -%>
+
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <h1>List of all Owners</h1>
+            <a class="btn btn-primary float-right" href="/owner/new">New Owner</a>
+            <table class="table table-striped" id="dogs_owners_table" data-toggle="table" data-pagination="true">
+                <thead>
+                    <tr>
+                        <th scope="col" data-field="Name">Name</th>
+                        <th scope="col" data-field="Email">Email</th>
+                        <th scope="col" data-field="Phone number">Phone</th>
+                        <th> &nbsp; </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% owners.forEach(function(owner){ %>
+                        <tr>
+                            <td><%= owner.name %></td>
+                            <td><%= owner.email %></td>
+                            <td><%= owner.phone %></td>
+                            <td style="width:30px;white-space: nowrap">
+                                <a href="/owner/view/<%= owner._id %>" class="btn btn-sm btn-primary"></i>Details</a>
+                            </td>
+                        </tr>
+                    <% }); %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+<%- include('footer') -%>

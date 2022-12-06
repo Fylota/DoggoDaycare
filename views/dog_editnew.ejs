@@ -1,0 +1,51 @@
+<%- include('header') -%>
+<body>
+    <%- include('navbar') -%>
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <h2><% if (typeof dog === 'undefined') {%>Save new doggo<%} else {%>Edit doggo<%}%></h2>
+            <form method="POST">
+                <div class="form-group">
+                    <label for="name">Name</label>
+                    <input type="text" class="form-control" id="inputDogName" name="name"
+                        <% if (typeof dog === 'undefined') {%> placeholder="Enter name"<%} %>
+                        <% if (typeof dog !== 'undefined') {%> value=<%= dog.name %> <%} %> required>
+                </div>
+                <div class="form-group">
+                    <label for="breed">Breed</label>
+                    <input type="text" class="form-control" id="inputDogBreed" name="breed"
+                        <% if (typeof dog === 'undefined') {%> placeholder="Enter breed"<%} %>
+                        <% if (typeof dog !== 'undefined') {%> value=<%= dog.breed %> <%} %> required>
+                </div>
+                <div class="form-group">
+                    <label for="dateOfBirth">Birth Date</label>
+                    <input type="date" class="form-control" id="inputDogBirthDate" name="dateOfBirth"
+                        <% if (typeof dog === 'undefined') {%> placeholder="Enter birth date"<%} %>
+                        <% if (typeof dog !== 'undefined') {%> value=<%= dog.dateOfBirth %> <%} %> required>
+                </div>
+                <div class="form-group">
+                    <label for="info">Additional info</label>
+                    <input type="text" class="form-control" id="inputAdditionalInfo" name="info"
+                        <% if (typeof dog === 'undefined') {%> placeholder="Enter any additional information"<%} %>
+                        <% if (typeof dog !== 'undefined') {%> value=<%= dog.info %> <%} %>>
+                </div>
+                <div class="form-group">
+                    <label for="owner">Select Owner</label>
+                    <select id="owner" name="owner" required>
+                        <% owners.forEach(function(owner) { %>
+                            <option value="<%= owner._id %> "><%= owner.name %> </option>
+                        <% }) %> 
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="isHere">Check in to Daycare</label>
+                    <input type="checkbox" id="isHere" name="isHere" value="true"></input>
+                </div>    
+                <button href="/dog" type="submit" class="btn btn-primary">Submit</button>
+                <button type="reset" class="btn btn-secondary">Reset</button>
+                <a href="/dog" type="button" class="btn btn-secondary float-right">Cancel</a>
+            </form>
+        </div>
+    </main>
+
+<%- include('footer') -%>

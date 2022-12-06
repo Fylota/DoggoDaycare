@@ -1,0 +1,44 @@
+<%- include('header') -%>
+
+    <body>
+
+        <%- include('navbar', {active:'dogs'}) -%>
+
+            <main role="main" class="container">
+                <div class="jumbotron">
+                    <h1>List of all Doggos</h1>
+                    <a class="btn btn-primary float-right" href="/dog/new">New Doggo</a>
+                    <table class="table table-striped" id="dogs_owners_table" data-toggle="table"
+                        data-pagination="true">
+                        <thead>
+                            <tr>
+                                <th scope="col" data-field="Name">Name</th>
+                                <th scope="col" data-field="Breed">Breed</th>
+                                <th> &nbsp; </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% dogs.forEach(function(dog){ %>
+                                <tr>
+                                    <td>
+                                        <%= dog.name %>
+                                    </td>
+                                    <td>
+                                        <%= dog.breed %>
+                                    </td>
+                                    <td style="width:30px;white-space: nowrap">
+                                        <a href="/dog/view/<%= dog._id %>" class="btn btn-sm btn-primary">Details</a>
+                                    </td>
+                                    <% if (dog.isHere===false) {%>
+                                        <td style="width:30px;white-space: nowrap">
+                                            <a href="/dog/checkin/<%= dog._id %>" class="btn btn-sm btn-primary">Check in</a>
+                                        </td>
+                                        <%}%>
+                                </tr>
+                                <% }); %>
+                        </tbody>
+                    </table>
+                </div>
+            </main>
+
+            <%- include('footer') -%>

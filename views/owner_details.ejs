@@ -1,0 +1,28 @@
+<%- include('header') -%>
+
+<body>
+
+    <%- include('navbar') -%>
+
+    <main role="main" class="container">
+        <div class="jumbotron" id="ownerProfileContainer">
+            <h1>Owner Details</h1>
+            <a href="/owner/edit/<%= owner._id %>" class="btn btn-sm btn-secondary float-right"><i class="far fa-edit"></i></a>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Name: <%= owner.name %></p>
+                    <p>Email: <%= owner.email %></p>
+                    <p>Phone: <%= owner.phone %></p>
+                    <p>Doggos: </p>
+                    <ul>
+                        <% dogs.forEach(function(dog){ %>
+                            <li><a href="/dog/view/<%= dog._id %>"><%= dog.name %></a></li>
+                        <% }); %>
+                    </ul>
+                </div>
+            </div>
+            <a href="/owner/del/<%= owner._id %>" class="btn btn-sm btn-danger float-right"><i class="far fa-trash-alt"></i></a>
+        </div>
+    </main>
+
+<%- include('footer') -%>

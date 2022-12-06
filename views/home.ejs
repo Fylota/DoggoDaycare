@@ -1,0 +1,39 @@
+<%- include('header') -%>
+
+<body>
+
+    <%- include('navbar', {active:'home'}) -%>
+
+    <main role="main" class="container">
+        <div class="jumbotron">
+            <h1>List of all Doggos currently in the DayCare</h1>
+            <table class="table table-striped" id="dogs_owners_table" data-toggle="table" data-pagination="true">
+                <thead>
+                    <tr>
+                        <th scope="col" data-field="Name">Name</th>
+                        <th scope="col" data-field="Breed">Breed</th>
+                        <th scope="col" data-field="Breed"></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% dogs.forEach(function(dog){ %>
+                        <tr>
+                            <td><%= dog.name %></td>
+                            <td><%= dog.breed %> </td>
+                            <td style="width:30px;white-space: nowrap">
+                                <a href="/dog/view/<%= dog._id %>" class="btn btn-sm btn-primary">Details</a>
+                            </td>
+                            <td>
+                                <form method='GET'>
+                                    <a class="btn btn-sm btn-primary" href="/dog/checkout/<%= dog._id %>">Check Out</a>
+                                </form>
+                            </td>
+                            </tr>
+                    <%}); %>
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+<%- include('footer') -%>

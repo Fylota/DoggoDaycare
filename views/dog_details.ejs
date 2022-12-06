@@ -1,0 +1,22 @@
+<%- include('header') -%>
+<body>
+    <%- include('navbar') -%>
+    <main role="main" class="container">
+        <div class="jumbotron" id="ownerProfileContainer">
+            <h1>Doggo Details</h1>
+            <a href="/dog/edit/<%= dog._id %>" class="btn btn-sm btn-secondary float-right"><i class="far fa-edit"></i></a>
+            <div class="row">
+                <div class="col-xs-12">
+                    <p>Name: <%= dog.name %> </p>
+                    <p>Breed: <%= dog.breed %> </p>
+                    <p>Owner: <a href="/owner/view/<%= owner._id %>"><%= owner.name %></a></p>
+                    <p>Date of birth: <%= dog.dateOfBirth %></p>
+                    <p>Additional info: <%= dog.info %></p>
+                </div>
+            </div>
+            
+            <a href="/dog/del/<%= dog._id %>" class="btn btn-sm btn-danger float-right"><i class="far fa-trash-alt"></i></a>
+        </div>
+    </main>
+
+<%- include('footer') -%>

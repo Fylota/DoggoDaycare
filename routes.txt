@@ -1,0 +1,113 @@
+Gazdik és kutyák - static/
+    - index.html - admin login, jelenlegi  kutyák listája
+    - owners.html - Gazdik lista
+    - owner_details.html egy gazdi adatai
+    - owner_editnew.html gazdi adatok + edit + save + delete + new
+    - dogs.html - kutyák lista
+    - dog_details.html - egy kutya adatai
+    - dog_editnew.html - kutya adatok + edit + save + delete + new
+
+
+Middlewares
+
+    middleware/common/
+        renderMW.js
+
+    middleware/auth/
+        checkPasswordMW.js
+        authMW.js
+
+    middleware/dog/
+        getAllDogsHereMW.js
+        getAllDogsMW.js
+        getDogMW.js 
+        saveDogMW.js
+        delDogMW.js
+
+    middleware/owner/
+        getOwnersMW.js
+        getOwnerMW.js
+        saveOwnerMW.js
+        delOwnerMW.js
+
+
+Routing
+
+    GET /                          - index.html
+        renderMW(index.html)       # Az oldal kirajzolása.
+
+    POST /login                    - index.html
+        checkPasswordMW            # Ha a POST paraméter megegyezik egy tárolt felhasználónév/jelszó párossal,
+                                   # akkor /home-ra átirányítás, ha nem akkor átirányít a GET /?error=wrongcredentials hibaoldalra. 
+    
+    POST /logout                   - index.html
+        logoutMW                   # Logs out and redirects to /. (index.html)
+    ----------------------------------------------------
+    GET /home                      - home.html
+        authMW                     # Ha nincs felhasználó bejelentkezve, átirányítja GET /?error=notloggedin oldalra.
+        getAllDogsHereMW              # Jelenleg a napköziben tartózkodó kutyák listázása.
+        renderMW(home.html)
+    ----------------------------------------------------
+    GET /dog                       - dogs.html
+        authMW                     
+        getAllDogsMW                  # Minden regisztrált kutya listázása.
+        renderMW(dogs.html)
+
+    GET /dog/view/:dogid            - dog_details.html
+        authMW
+        getDogMW                   # Paraméterből kiolvassa az ID-t, ami alapján lekérdezi az adatbázist és visszatér az adatokkal.
+        renderMW(dog_details.html)
+
+    GET, POST /dog/new             - dog_editnew.html (new)
+        authMW                     # Ha nincs felhasználó bejelentkezve, átirányítja GET /?error=notloggedin oldalra.
+        saveDogMW                  # Új kutya hozzáadása az adatbázishoz POST esetén.
+                                # Ha nincs post paramban a kutyához tartozó adat leküldve, akkor next()-et hív.
+                                # Ha van ilyen adat, megpróbálja lementeni.
+                                # Ha ezalatt hibába fut, a hibát elmenti egy változóba és next()-et hív.
+                                # Különben ha sikerült a mentés, átirányít a /dog oldalra.
+        renderMW(dog_editnew.html) # Ha volt érték beküldve, a form azzal töltődjön fel.
+
+    GET, POST /dog/edit/:dogid     - dog_editnew.html (edit)
+        authMW                     # Ha nincs felhasználó bejelentkezve, átirányítja GET /?error=notloggedin oldalra.
+        getDogMW                   
+        saveDogMW
+        renderMW(dog_editnew.html)
+
+    POST /dog/checkin/:dogid
+        authMW
+        checkInDogMW               # Kutya becsekkolása a napközibe
+
+    POST /dog/checkout/:dogid
+        authMW 
+        checkOutDogMW              # Kutya kicsekkolása a napköziből
+
+    GET /dog/del/:dogid
+        authMW
+        getDogMW
+        delDogMW                   # Kutya törlése az id alapján, majd átirányítás /dog oldalra.
+    ----------------------------------------------------
+    GET /owner                     - owners.html
+        authMW                     
+        getOwnersMW                # Minden regisztrált gazdi listázása.
+        renderMW(owners.html)
+
+    GET /owner/view/:ownerid       - owner_details.html
+        authMW
+        getOwnerMW
+        renderMW(owner_details.html)
+
+    GET, POST /owner/new           - owner_editnew.html (new)
+        authMW
+        saveOwnerMW
+        renderMW(owner_editnew.html)
+
+    GET, POST /owner/edit/:ownerid  - owner_editnew.html (edit)
+        authMW
+        getOwnerMW
+        saveOwnerMW
+        renderMW(owner_editnew.html)
+
+    GET /owner/del/:ownerid
+        authMW
+        getOwnerMW
+        delOwnerMW
